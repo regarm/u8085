@@ -522,6 +522,20 @@ bool Internal8085::LXI(int val, QString lowByte, QString highByte){
 }
 
 bool Internal8085::MOV(int Rd, int Rs){
+    if(Rd == 6 && Rs == 6){
+        return false;
+    }
+    if(Rd == 6){
+        setValueofM(regs[Rs]->toString());
+        return true;
+    }
+    if(Rs == 6){
+        bool ok;
+        QString Mval = getValueOfM(ok);
+        if(!ok) return false;
+        regs[Rd]->setValue(Mval);
+        return true;
+    }
     Register *Rdg = regs[Rd];
     Register *Rsg = regs[Rs];
     Rdg->setValue(Rsg->toInt());
@@ -529,6 +543,10 @@ bool Internal8085::MOV(int Rd, int Rs){
 }
 bool Internal8085::MVI(int R, QString val){
     if(R < 0 || R > 8) return false;
+    if(R == 6){
+        setValueofM(val);
+        return true;
+    }
     regs[R]->setValue(val);
     return true;
 }

@@ -17,7 +17,6 @@ class MemEditorDock : public QDockWidget
     Q_OBJECT
 public:
     MemEditorDock(QString,Internal8085 *__8085 = 0, QWidget *parent = 0);
-private:
     QVBoxLayout *cells[100];
     QWidget *memWidget;
     int base;
@@ -36,7 +35,7 @@ signals:
 public slots:
     void updateMemEdit();
     void MCellChanged(QString);
-    void checkForMCell();
+//    void checkForMCell();
 };
 
 #endif // MEMEDITORDOCK_H

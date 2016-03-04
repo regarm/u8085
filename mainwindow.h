@@ -49,6 +49,7 @@ public:
     logDock *log;
     QMap<QString, bool> labelExists;
     QMap<QString, int> labelAddressMap;
+    int previousHL;
 
     void genOpcodes(QString& );
     void assembleFreeze();
@@ -73,6 +74,8 @@ public slots:
     void singleSteping();
     void next();
     void previous();
+
+    void HLChanged();
 private:
     Ui::MainWindow *ui;
     QAction *newFileAction;

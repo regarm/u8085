@@ -22,7 +22,7 @@ public slots:
 //    void registerEdited(QString);
     void regFEditedFromRegDockFreg_SLOT(QString);
     void regEditedFromRegDock_SLOT(QString);
-    void cellChangedFromMemDock(QString);
+    void cellChangedFromMemDock_SLOT(QString);
 signals:
 //    void registerChanged(QString);
 //    void registerFChanged(QString);
@@ -30,7 +30,8 @@ signals:
     void regEditedFromRegDock_SIG(QString);
     void regFEditedFromRegDockFreg_SIG(QString);
     void regFEditedFromRegDockFlags_SIG(QString);
-    void cellChangedInternally(QString);
+    void cellChangedInternally_SIG(QString);
+    void cellChangedFromMemDock_SIG(QString);
 };
 
 #endif // REGISTER_H

@@ -20,6 +20,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(regDock->M, SIGNAL(textEdited(QString)), memDock, SLOT(MCellChanged(QString)));
     connect(regDock->M, SIGNAL(textEdited(QString)),&__8085, SLOT(MCellChanged(QString)));
+    connect(&__8085.H, SIGNAL(regEditedInternally_SIG(QString)), this, SLOT(HLChanged()));
+    connect(&__8085.L, SIGNAL(regEditedInternally_SIG(QString)), this, SLOT(HLChanged()));
+    connect(&__8085.H, SIGNAL(regEditedFromRegDock_SIG(QString)), this, SLOT(HLChanged()));
+    connect(&__8085.L, SIGNAL(regEditedFromRegDock_SIG(QString)), this, SLOT(HLChanged()));
+    previousHL = (__8085.H.toInt() << 8) + __8085.L.toInt();
 }
 
 MainWindow::~MainWindow()
@@ -264,3 +269,18 @@ void MainWindow::exit(){
 void MainWindow::singleSteping(){}
 void MainWindow::next(){}
 void MainWindow::previous(){}
+void MainWindow::HLChanged(){
+    if(previousHL >= __8085.lowAddressLimit && previousHL < __8085.upAddressLimit){
+        disconnect(&__8085.cells[previousHL - __8085.lowAddressLimit], SIGNAL(cellChangedInternally_SIG(QString)), regDock->M,SLOT(setText(QString)));
+        if(previousHL >= memDock->base && previousHL < memDock->base + memDock->gridS*memDock->gridS){
+            disconnect(memDock->values[previousHL - memDock->base], SIGNAL(textEdited(QString)), regDock->M,SLOT(setText(QString)));
+        }
+    }
+    previousHL = (__8085.H.toInt() << 8) + __8085.L.toInt();
+    if(previousHL >= __8085.lowAddressLimit && previousHL < __8085.upAddressLimit){
+        connect(&__8085.cells[previousHL - __8085.lowAddressLimit], SIGNAL(cellChangedInternally_SIG(QString)), regDock->M,SLOT(setText(QString)));
+        if(previousHL >= memDock->base && previousHL < memDock->base + memDock->gridS*memDock->gridS){
+            connect(memDock->values[previousHL - memDock->base], SIGNAL(textEdited(QString)), regDock->M,SLOT(setText(QString)));
+        }
+    }
+}

@@ -99,7 +99,6 @@ QString Internal8085::getValueOfM(bool &ok){
     return getValueAtCell(((H.toInt()<<8) + L.toInt()), ok);
 }
 bool Internal8085::setValueofM(QString val){
-    qDebug() << "in SetValueofM";
     val = val.toUpper().rightJustified(2, QLatin1Char('0'));
     return setValueAtCell(((H.toInt()<<8) + L.toInt()), val);
 }

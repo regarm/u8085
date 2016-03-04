@@ -300,7 +300,6 @@ void RegEditor::updateContents(){
     F->setText(__8085->F.toString());
     H->setText(__8085->H.toString());
     L->setText(__8085->L.toString());
-    previousHL = ((__8085->H.toInt()) << 8) + __8085->L.toInt();
     PC->setText(__8085->PC.toString());
     SP->setText(__8085->SP.toString());
 }

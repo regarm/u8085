@@ -33,14 +33,14 @@ void Register::setValue(const QString& str){
         setBit(i,(val&(1LL<<(this->size() - i - 1))));
     }
     emit regEditedInternally_SIG(str);
-    emit cellChangedInternally(str);
+    emit cellChangedInternally_SIG(str);
 }
 void Register::setValue(int val){
     for(int i = 0;i < this->size();++i){
         setBit(i,(val&(1LL<<(this->size() - i - 1))));
     }
     emit regEditedInternally_SIG(this->toString());
-    emit cellChangedInternally(this->toString());
+    emit cellChangedInternally_SIG(this->toString());
 }
 QString Register::toString(){
     QString sval;
@@ -71,10 +71,11 @@ void Register::regEditedFromRegDock_SLOT(QString str){
     }
     emit regEditedFromRegDock_SIG(this->toString());
 }
-void Register::cellChangedFromMemDock(QString str){
+void Register::cellChangedFromMemDock_SLOT(QString str){
     bool ok;
     uint64_t val = str.toLongLong(&ok, 16);
     for(int i = 0;i < this->size();++i){
         setBit(i,(val&(1LL<<(this->size() - i - 1))));
     }
+    emit cellChangedFromMemDock_SIG(this->toString());
 }

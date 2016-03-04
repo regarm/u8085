@@ -27,7 +27,6 @@ public:
 
     QLineEdit *flagC, *flagAC, *flagP, *flagS, *flagZ;
     Internal8085 *__8085;
-    int previousHL;
 public:
     void freeze();
     void unfreeze();

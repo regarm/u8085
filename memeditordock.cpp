@@ -50,8 +50,8 @@ void MemEditorDock::updateMemEdit(){
     showStartAddress->setText(showStartAddress->text().toUpper());
     for(int i = 0;i < gridS * gridS;++i){
        if(base + i >= __8085->lowAddressLimit && base + i < __8085->upAddressLimit){
-            disconnect(values[i], SIGNAL(textEdited(QString)), &__8085->cells[base + i - 0x2000], SLOT(cellChangedFromMemDock(QString)));
-            disconnect(&__8085->cells[base + i - 0x2000], SIGNAL(cellChangedInternally(QString)), values[i], SLOT(setText(QString)));
+            disconnect(values[i], SIGNAL(textEdited(QString)), &__8085->cells[base + i - 0x2000], SLOT(cellChangedFromMemDock_SLOT(QString)));
+            disconnect(&__8085->cells[base + i - 0x2000], SIGNAL(cellChangedInternally_SIG(QString)), values[i], SLOT(setText(QString)));
         }
     }
 
@@ -73,8 +73,8 @@ void MemEditorDock::updateMemEdit(){
         } else{
             bool ok;
             values[i]->setText(__8085->getValueAtCell(base + i, ok));
-            connect(values[i], SIGNAL(textEdited(QString)), &__8085->cells[base + i - 0x2000], SLOT(cellChangedFromMemDock(QString)));
-            connect(&__8085->cells[base + i - 0x2000], SIGNAL(cellChangedInternally(QString)), values[i], SLOT(setText(QString)));
+            connect(values[i], SIGNAL(textEdited(QString)), &__8085->cells[base + i - 0x2000], SLOT(cellChangedFromMemDock_SLOT(QString)));
+            connect(&__8085->cells[base + i - 0x2000], SIGNAL(cellChangedInternally_SIG(QString)), values[i], SLOT(setText(QString)));
             values[i]->setEnabled(true);
         }
         values[i]->setMaximumWidth(25);
