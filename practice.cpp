@@ -27,6 +27,8 @@ int main () {
         }
     }
     cout << ss.size() << " ";
+   // cout<< ss.size() + 1 << endl;
+    // cout the size of set + 1.
     for(set<int> :: iterator it = ss.begin();it != ss.end();++it){
         cout << *it << " ";
     }
