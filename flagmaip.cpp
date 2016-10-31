@@ -74,4 +74,5 @@ void Internal8085::updateFlags(){
     setFlagS(A.testBit(0));
     setFlagP(!xr);
     setFlagZ(isZero);
+    // cout<< isZero <<endl;
 }
